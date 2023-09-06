@@ -10,10 +10,21 @@ Target Server Type    : MYSQL
 Target Server Version : 50728
 File Encoding         : 65001
 
-Date: 2023-09-01 20:29:21
+Date: 2023-09-06 19:50:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for admin_user
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_user`;
+CREATE TABLE `admin_user` (
+  `userId` int(100) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for department
@@ -25,10 +36,6 @@ CREATE TABLE `department` (
   PRIMARY KEY (`departmentId`),
   KEY `departmentName` (`departmentName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of department
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for schedule
@@ -54,10 +61,6 @@ CREATE TABLE `schedule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of schedule
--- ----------------------------
-
--- ----------------------------
 -- Table structure for staff
 -- ----------------------------
 DROP TABLE IF EXISTS `staff`;
@@ -74,10 +77,6 @@ CREATE TABLE `staff` (
   KEY `dd1` (`departmentName`),
   CONSTRAINT `dd1` FOREIGN KEY (`departmentName`) REFERENCES `department` (`departmentName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of staff
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for staff_unit
@@ -98,8 +97,18 @@ CREATE TABLE `staff_unit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of staff_unit
+-- Table structure for staff_user
 -- ----------------------------
+DROP TABLE IF EXISTS `staff_user`;
+CREATE TABLE `staff_user` (
+  `userId` int(100) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `staffId` int(100) DEFAULT NULL,
+  PRIMARY KEY (`userId`),
+  KEY `staffId` (`staffId`),
+  CONSTRAINT `staff_user_ibfk_1` FOREIGN KEY (`staffId`) REFERENCES `staff` (`staffId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for student
@@ -119,10 +128,6 @@ CREATE TABLE `student` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of student
--- ----------------------------
-
--- ----------------------------
 -- Table structure for student_unit
 -- ----------------------------
 DROP TABLE IF EXISTS `student_unit`;
@@ -138,8 +143,18 @@ CREATE TABLE `student_unit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of student_unit
+-- Table structure for student_user
 -- ----------------------------
+DROP TABLE IF EXISTS `student_user`;
+CREATE TABLE `student_user` (
+  `userId` int(100) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `studentId` int(100) DEFAULT NULL,
+  PRIMARY KEY (`userId`),
+  KEY `studentId` (`studentId`),
+  CONSTRAINT `student_user_ibfk_1` FOREIGN KEY (`studentId`) REFERENCES `student` (`studentId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for timeslot
@@ -159,10 +174,6 @@ CREATE TABLE `timeslot` (
   KEY `startTime_2` (`startTime`,`endTime`),
   CONSTRAINT `uni` FOREIGN KEY (`unitName`) REFERENCES `unit` (`unitName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of timeslot
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for unit
@@ -187,26 +198,6 @@ CREATE TABLE `unit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of unit
--- ----------------------------
-
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `userId` int(100) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `permission` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-
--- ----------------------------
 -- Table structure for venue
 -- ----------------------------
 DROP TABLE IF EXISTS `venue`;
@@ -220,10 +211,6 @@ CREATE TABLE `venue` (
   KEY `location` (`location`),
   KEY `venueName` (`venueName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of venue
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for venue_unit
@@ -241,7 +228,3 @@ CREATE TABLE `venue_unit` (
   CONSTRAINT `333` FOREIGN KEY (`startTime`, `endTime`) REFERENCES `timeslot` (`startTime`, `endTime`),
   CONSTRAINT `4` FOREIGN KEY (`venueName`) REFERENCES `venue` (`venueName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of venue_unit
--- ----------------------------
