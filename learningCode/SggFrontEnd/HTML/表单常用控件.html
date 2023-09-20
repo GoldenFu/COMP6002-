@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>表单常用控件</title>
+</head>
+<body>
+           
+          <form action="https://search.jd.com/search">
+            <!-- 文本输入框 -->
+
+           账户：<input type="text" name="account" maxlength="20" value="zhangsan"><br>
+           <!-- 密码输入框 -->
+           密码：<input type="password" name="pwd" maxlength="20"  ><br>
+           <!-- 单选框 -->
+           性别：
+           <input type="radio" name="gender" value="male">男
+           <input type="radio" name="gender" value="female" checked>女<br>
+           <!-- 多选框 -->
+           爱好：
+           <input type="checkbox" name="hobby" value="chouyan">抽烟
+           <input type="checkbox" name="hobby" value="drink" checked>喝酒
+           <input type="checkbox" name="hobby" value="tangtou" checked>烫头
+           <!-- 隐藏域 -->
+            <input type="hidden" name="from" value="baidu">
+            
+           
+
+
+
+            <!-- 确认按钮第一种写法 -->
+            <!-- <br><button>确认</button> -->
+            <!-- 第二种写法 -->
+            <br><input type="submit" value="提交">
+            <!-- 重置按钮 第一种写法 -->
+            <!-- <button type="reset">重置按钮</button> -->
+            <!-- 第二种写法 -->
+            <input type="reset" value="重置按钮">
+            <!-- 普通按钮 -->
+            <button type="button">检测账户是否被注册</button>
+              
+             
+
+          </form>  
+            
+</body>
+</html>
